@@ -119,6 +119,7 @@ def command(line):
 
 
 def main():
+    recorder.play(TURRET_SOUND_FILES + '/turret_turret_autosearch_1.wav')
     recorder.set_base_volume()
     running = True
     while running:
