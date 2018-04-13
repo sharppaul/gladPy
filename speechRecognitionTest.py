@@ -95,14 +95,18 @@ def tell_weather():
     weather = wthr.get_current_weather(CITY)
     print(weather)
 
+
 def tabs_spaces():
     recorder.play(GLADOS_SOUND_FILES + '/braindamage.wav')
+
 
 def calculate():
     recorder.play(GLADOS_SOUND_FILES + '/calculate.wav')
 
+
 def lemon():
     recorder.play(GLADOS_SOUND_FILES + '/lemon.wav')
+
 
 def command(line):
     line = line.lower()
@@ -124,7 +128,7 @@ def command(line):
 
         """Thank you"""
         has_executed = has_executed or test(line, playsongKeywords, 'playPortalSong')
-        
+
         """Tabs or spaces"""
         has_executed = has_executed or test(line, stupidquestionKeywords, 'tabs_spaces')
 
@@ -147,7 +151,7 @@ def main():
     while running:
         if mr.registerMovement():
             randomTurretNoise()
-            
+
         recordedFile = None
         while recordedFile is None:
             recordedFile = recorder.test_and_record()
@@ -171,7 +175,6 @@ def main():
             command(resultText)
 
         os.remove(recordedFile)
-
 
 
 if __name__ == '__main__':
