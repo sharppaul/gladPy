@@ -1,6 +1,7 @@
 from speechToText import *
 from speechRecorder import *
 from classes import *
+from movementRegistration import *
 import os
 import json
 import random
@@ -9,6 +10,7 @@ import time
 recorder = SoundRecorder()
 stt = SpeechToText()
 wthr = WeatherGrabber()
+mr = MovementRegistration()
 
 TURRET_SOUND_FILES = "soundfiles/turrets"
 GLADOS_SOUND_FILES = "soundfiles/glados"
@@ -22,6 +24,9 @@ weatherKeywords = ['what', 'weather']
 weatherKeywords2 = ['how', 'weather']
 thankyouKeywords = ['thank', 'you']
 playsongKeywords = ['play', 'song']
+stupidquestionKeywords = ['tabs', 'space']
+calculateKeywords = ['x', 'y']
+lemonKeywords = ['lemon']
 
 weather = wthr.get_current_weather(CITY)
 
@@ -90,6 +95,14 @@ def tell_weather():
     weather = wthr.get_current_weather(CITY)
     print(weather)
 
+def tabs_spaces():
+    recorder.play(GLADOS_SOUND_FILES + '/braindamage.wav')
+
+def calculate():
+    recorder.play(GLADOS_SOUND_FILES + '/calculate.wav')
+
+def lemon():
+    recorder.play(GLADOS_SOUND_FILES + '/lemon.wav')
 
 def command(line):
     line = line.lower()
@@ -111,6 +124,15 @@ def command(line):
 
         """Thank you"""
         has_executed = has_executed or test(line, playsongKeywords, 'playPortalSong')
+        
+        """Tabs or spaces"""
+        has_executed = has_executed or test(line, stupidquestionKeywords, 'tabs_spaces')
+
+        """Calculate"""
+        has_executed = has_executed or test(line, calculateKeywords, 'calculate')
+
+        """Lemon"""
+        has_executed = has_executed or test(line, lemonKeywords, 'lemon')
 
         if not has_executed:
             randomTurretNoise()
@@ -122,6 +144,9 @@ def main():
     recorder.set_base_volume()
     running = True
     while running:
+        if mr.registerMovement():
+            randomTurretNoise()
+            
         recordedFile = None
         while recordedFile is None:
             recordedFile = recorder.test_and_record()
@@ -145,6 +170,7 @@ def main():
             command(resultText)
 
         os.remove(recordedFile)
+
 
 
 if __name__ == '__main__':
