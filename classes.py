@@ -3,8 +3,6 @@ import requests
 import time
 
 
-
-
 def millis():
     return int(round(time.time() * 1000))
 
@@ -23,7 +21,8 @@ class Weather:
 
     def __str__(self):
         return "Location: {}, {},\n Windspeed: {},\n Visibility: {},\n Temp: {},\n Pressure: {},\n Humidity: {}," \
-               "\n Condition: {}".format(self.city, self.country, self.wind, self.visibility, self.temperature, self.pressure,
+               "\n Condition: {}".format(self.city, self.country, self.wind, self.visibility, self.temperature,
+                                         self.pressure,
                                          self.humidity, self.condition)
 
 
