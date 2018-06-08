@@ -50,3 +50,8 @@ fabric.properties
 .idea/httpRequests.idea/
 __pycache__/
 .idea/
+wav/*.wav
+
+
+
+
